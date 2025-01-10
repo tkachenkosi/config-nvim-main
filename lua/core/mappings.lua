@@ -1,3 +1,5 @@
+local keymap = vim.keymap -- for conciseness
+
 -- Buffers
 vim.api.nvim_set_keymap("n", "<leader>q", "<cmd>qa<CR>", {})
 vim.api.nvim_set_keymap("n", "<leader>w", "<cmd>w<CR>", {})
@@ -78,8 +80,8 @@ vim.api.nvim_set_keymap('n', '<S-Tab>', '<cmd>bprevious<CR>', {})
 
 -- цветовые темы оформления
 -- vim.keymap.set('n', '<leader>1', [[<cmd>colorscheme onedark<CR>]])
-vim.keymap.set('n', '<leader>2', function() require('onedark').load(); end, {})
-vim.keymap.set('n', '<leader>4', function() require('gruvboxmy').load(); end, {})
+keymap.set('n', '<leader>2', function() require('onedark').load(); end, {})
+keymap.set('n', '<leader>4', function() require('gruvboxmy').load(); end, {})
 -- vim.keymap.set('n', '<leader>4', [[<cmd>colorscheme gruvboxmy<CR>]])
 
 -- отмена в привычном сочетании
@@ -90,19 +92,19 @@ vim.api.nvim_set_keymap('i', '<c-z>', "<Esc><cmd>undo<CR>", {})
 -- навесим на u снятие выделения
 vim.api.nvim_set_keymap('n', 'u', '<cmd>noh<CR>', {})
 
-vim.keymap.set('n', '<leader>й', "<cmd>qa<CR>")
-vim.keymap.set('n', 'щ', 'o')
-vim.keymap.set('n', 'ш', 'i')
-vim.keymap.set('n', 'ф', 'a')
-vim.keymap.set('n', 'Ж', ':')
-vim.keymap.set('n', 'М', 'V')
-vim.keymap.set('n', 'м', 'v')
-vim.keymap.set('n', 'г', 'u')
-vim.keymap.set('n', 'н', 'y')
-vim.keymap.set('v', 'н', 'y')
-vim.keymap.set('o', 'н', 'y')
-vim.keymap.set('n', 'з', 'p')
-vim.keymap.set('v', 'з', 'p')
-vim.keymap.set('n', 'в', 'd')
-vim.keymap.set('v', 'в', 'd')
-vim.keymap.set('o', 'в', 'd')
+keymap.set('n', '<leader>й', "<cmd>qa<CR>")
+keymap.set('n', 'щ', 'o')
+keymap.set('n', 'ш', 'i')
+keymap.set('n', 'ф', 'a')
+keymap.set('n', 'Ж', ':')
+keymap.set('n', 'М', 'V')
+keymap.set('n', 'м', 'v')
+keymap.set('n', 'г', 'u')
+keymap.set('n', 'н', 'y')
+keymap.set('v', 'н', 'y')
+keymap.set('o', 'н', 'y')
+keymap.set('n', 'з', 'p')
+keymap.set('v', 'з', 'p')
+keymap.set('n', 'в', 'd')
+keymap.set('v', 'в', 'd')
+keymap.set('o', 'в', 'd')
