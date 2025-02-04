@@ -1,8 +1,8 @@
 return {
-  "tkachenkosi/gruvboxmy.nvim", 
+  "tkachenkosi/gruvboxsi.nvim",
   -- priority = 1000 , 
   config = function()
-    local grouv = require("gruvboxmy")
+    local grouv = require("gruvboxsi")
     grouv.setup({
       contrast = "hard",
     })

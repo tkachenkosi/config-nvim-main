@@ -2,7 +2,8 @@ local keymap = vim.keymap -- for conciseness
 
 -- Buffers
 vim.api.nvim_set_keymap("n", "<leader>q", "<cmd>qa<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>w", "<cmd>w<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>w", "<CMD>w<CR><CMD>mks! .session<CR>", {})		-- сохранить файл и сохранить сессию
+-- vim.api.nvim_set_keymap("n", "<leader>r", "<CMD>so .session<CR>", {})		-- открыть сессию
 vim.api.nvim_set_keymap('n', '<F2>', '<cmd>w<CR>', {})
 vim.api.nvim_set_keymap('i', '<F2>', '<Esc><cmd>w<CR>', {})
 -- vim.keymap.set("i", "jj", "<Esc>")
@@ -58,7 +59,9 @@ vim.api.nvim_set_keymap("n", "<leader>x", ":wincmd h<CR>:wincmd q<CR>", {})
 vim.api.nvim_set_keymap('n', '<c-s>', '<cmd>set relativenumber!<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>/', '<cmd>noh<CR>', {})
 
-
+-- открыть окно со списоком буферов
+vim.keymap.set('n', '<F9>', '<CMD>StartMbuffers<CR>')
+vim.keymap.set('i', '<F9>', '<Esc><CMD>StartMbuffers<CR>')
 -- переключиться на предыдущий буфер
 vim.api.nvim_set_keymap('n', '<F10>', '<c-6>', {})
 vim.api.nvim_set_keymap('i', '<F10>', '<Esc><c-6>', {})
@@ -81,7 +84,7 @@ vim.api.nvim_set_keymap('n', '<S-Tab>', '<cmd>bprevious<CR>', {})
 -- цветовые темы оформления
 -- vim.keymap.set('n', '<leader>1', [[<cmd>colorscheme onedark<CR>]])
 keymap.set('n', '<leader>2', function() require('onedark').load(); end, {})
-keymap.set('n', '<leader>4', function() require('gruvboxmy').load(); end, {})
+keymap.set('n', '<leader>3', function() require('gruvboxsi').load(); end, {})
 -- vim.keymap.set('n', '<leader>4', [[<cmd>colorscheme gruvboxmy<CR>]])
 
 -- отмена в привычном сочетании

@@ -3,6 +3,8 @@ require("core.configs")
 require("core.mappings")
 require("core.lazy")
 require("core.cmds")
--- print("Привет test")
+require("my.myfunc")
+-- require("my.mbuffers")
+-- require("my.module")
 
 

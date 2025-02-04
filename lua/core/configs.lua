@@ -12,7 +12,7 @@ vim.opt.smartindent = true  -- что то для отступов в новой
 vim.opt.encoding="utf-8"
 vim.opt.fileformat="unix"
 
-vim.opt.scrolloff = 5
+vim.opt.scrolloff = 3
 vim.opt.wrap = false
 vim.opt.termguicolors = true
 vim.opt.background = "dark" -- or "light" for light mode
@@ -38,3 +38,6 @@ vim.g.netrw_browse_split = 4
 vim.wo.signcolumn = 'yes'
 -- vim.opt.hlsearch = true
 -- vim.opt.hidden = true
+
+-- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#112233" })
+vim.api.nvim_win_set_option(0, "cursorline", true) -- Включаем подсветку текущей строки

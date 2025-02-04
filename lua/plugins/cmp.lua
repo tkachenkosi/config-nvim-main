@@ -2,6 +2,8 @@ return {
   {'hrsh7th/cmp-nvim-lsp'},
   {'hrsh7th/cmp-buffer'},
   {'hrsh7th/cmp-path'},
+  {'hrsh7th/vim-vsnip'},
+  {'hrsh7th/cmp-vsnip'},
   {'hrsh7th/cmp-cmdline'},
   {
     'hrsh7th/nvim-cmp',
@@ -35,12 +37,12 @@ return {
               -- ['<C-n>'] = cmp.mapping(function(falback)
               ['<c-Tab>'] = cmp.mapping(function(falback)
                 if cmp.visible() then
-                  cmp.select_next_item({behavior = 'insert'})   -- перемещаемся по списку и делаем замену в редактори в позиции курсора
+                  cmp.select_next_item({behavior = 'insert'})   -- перемещаемся по списку и делаем замену в редактори в позиции курсора при перемещении
                 else
                   -- cmp.complete()
 									falback()
                 end
-              end),
+              end, {"i", "s"}),
               -- ['<C-p>'] = cmp.mapping(function(falback)
               ['<s-Tab>'] = cmp.mapping(function(falback)
                 if cmp.visible() then
@@ -65,3 +67,6 @@ return {
     end
   }
 }
+
+-- примеры и обсуждения настроек. Решил проблему с работы модуля в lua
+-- https://github.com/hrsh7th/vim-vsnip/issues/219
