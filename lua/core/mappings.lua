@@ -60,8 +60,9 @@ vim.api.nvim_set_keymap('n', '<c-s>', '<cmd>set relativenumber!<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>/', '<cmd>noh<CR>', {})
 
 -- открыть окно со списоком буферов
-vim.keymap.set('n', '<F9>', '<CMD>StartMbuffers<CR>')
-vim.keymap.set('i', '<F9>', '<Esc><CMD>StartMbuffers<CR>')
+-- vim.keymap.set('n', '<F12>', '<CMD>StartMbuffers<CR>')
+-- vim.keymap.set('i', '<F12>', '<Esc><CMD>StartMbuffers<CR>')
+vim.keymap.set({'n', 'i'}, '<F12>', function() require('mbuffers').start(); end)
 -- переключиться на предыдущий буфер
 vim.api.nvim_set_keymap('n', '<F10>', '<c-6>', {})
 vim.api.nvim_set_keymap('i', '<F10>', '<Esc><c-6>', {})

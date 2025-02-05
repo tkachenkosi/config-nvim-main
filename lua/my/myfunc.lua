@@ -5,7 +5,7 @@
 
 
 local M = {}
-local buf, win
+-- local buf, win
 
 
 local filter_text = ""
@@ -138,6 +138,14 @@ local function create_floating_window()
     vim.api.nvim_buf_set_option(buf, "readonly", true)
     vim.api.nvim_buf_set_option(buf, "modifiable", false)
 
+-- Открыть терминал
+-- vim.cmd("term")
+
+-- Получить ID терминала
+-- local term_id = vim.b.terminal_job_id
+
+-- Отправить команду в терминал
+-- vim.api.nvim_chan_send(term_id, "echo 'Hello from Lua!'\n")
 end
 
 -- Создаём команду для вызова функции
@@ -385,11 +393,12 @@ local function print_buffers_to_window()
     -- vim.api.nvim_buf_set_keymap(buf, "n", "<CR>",	"<CMD>SelectBuffer<CR>", { noremap = true, silent = true })
 
     vim.api.nvim_buf_set_keymap(buf, "n", "<Esc>", [[<CMD>lua require('my.myfunc').close_buffer()<CR>]], { noremap = true, silent = true })
-		vim.api.nvim_buf_set_keymap(buf, "n", "<CR>",	[[<CMD>lua require('my.myfunc').select_buffer()<CR>]], { noremap = true, silent = true })
+		-- vim.api.nvim_buf_set_keymap(buf, "n", "<CR>",	[[<CMD>lua require('my.myfunc').select_buffer()<CR>]], { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(buf, "n", "<CR>",	require('my.myfunc').select_buffer, { noremap = true, silent = true })
 
 
     -- vim.api.nvim_buf_set_keymap(buf, "n", "<Char>", ":lua require('my.myfunc').handle_char(vim.fn.nr2char(vim.v.char))<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(buf, "n", "<lhs>", ":lua require('my.myfunc').handle_char(vim.fn.nr2char(vim.v.char))<CR>", { noremap = true, silent = true })
+    -- vim.api.nvim_buf_set_keymap(buf, "n", "<lhs>", ":lua require('my.myfunc').handle_char(vim.fn.nr2char(vim.v.char))<CR>", { noremap = true, silent = true })
 
 end
 
