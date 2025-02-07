@@ -36,7 +36,7 @@ vim.keymap.set({'n','i'}, '<a-3>', function() print_snippet(tab_snippet_main) en
 vim.keymap.set({'n','i'}, '<a-4>', function() print_snippet(tab_snippet_range) end)
 
 
--- Функция для сохранения текущей строки в переменную
+-- добовляет тэги к полям структуры на golang
 local function gen_json_current_line()
 		local line = vim.api.nvim_get_current_line()
 
@@ -137,6 +137,8 @@ local function create_floating_window()
 		-- Устанавливаем режим "только для чтения"
     vim.api.nvim_buf_set_option(buf, "readonly", true)
     vim.api.nvim_buf_set_option(buf, "modifiable", false)
+
+		print("=>"..vim.fn.getcwd())
 
 -- Открыть терминал
 -- vim.cmd("term")

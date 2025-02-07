@@ -9,6 +9,8 @@ local filter_buf, filter_win
 local original_lines = {}
 -- для вычисления ширины окна
 local max_len_buffer = 0
+-- окно откуда был запуск и в котором нужно поменять содержимое
+local current_win
 
 M.config = {
 	-- #112233
@@ -34,10 +36,11 @@ end
 
 -- Функция для получения списка открытых буферов с номерами и атрибутами
 local function get_open_buffers()
-    local buffers = {}
+    original_lines = {}
     local current_buf = vim.api.nvim_get_current_buf() -- Текущий активный буфер
     local previous_buf = vim.fn.bufnr("#")             -- Предыдущий буфер
 		local root_dir = vim.fn.getcwd() .. "/"
+		print(root_dir)
 
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 				if vim.fn.buflisted(buf) == 1 and vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_get_name(buf) ~= "" then
@@ -64,11 +67,9 @@ local function get_open_buffers()
 						end
 
             -- Формируем строку с информацией о буфере
-            table.insert(buffers, string.format(" %3d %s %s", buf_number, table.concat(attributes, ""), file_name))
+            table.insert(original_lines, string.format(" %3d %s %s", buf_number, table.concat(attributes, ""), file_name))
         end
     end
-
-    return buffers
 end
 
 -- Функция для создания основного окна
@@ -96,7 +97,7 @@ local function create_main_window()
     local col = math.floor((vim.o.columns - width))
 
     local opts = {
-        relative = "win",
+        relative = "editor",
         width = width,
         height = height,
         row = 1,
@@ -114,12 +115,12 @@ local function create_main_window()
     vim.api.nvim_buf_set_option(main_buf, "readonly", true)
     vim.api.nvim_buf_set_option(main_buf, "modifiable", false)
 
-    vim.api.nvim_buf_set_keymap(main_buf, "n", "<Esc>", "<Cmd>lua require('my.module').close_mbuffers()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(main_buf, "n", "q", "<Cmd>lua require('my.module').close_mbuffers()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(main_buf, "n", "f", "<Cmd>lua require('my.module').select_filter_window()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(main_buf, "n", "<c-Up>", "<Cmd>lua require('my.module').select_filter_window()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(main_buf, "n", "<Up>", "<Cmd>lua require('my.module').select_filter_up()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(main_buf, "n", "<CR>", "<Cmd>lua require('my.module').select_buffer()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(main_buf, "n", "<Esc>", "<Cmd>lua require('mbuffers').close()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(main_buf, "n", "q", "<Cmd>lua require('mbuffers').close()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(main_buf, "n", "f", "<Cmd>lua require('mbuffers').select_filter_window()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(main_buf, "n", "<c-Up>", "<Cmd>lua require('mbuffers').select_filter_window()<CR>", { noremap = true, silent = true })
+    -- vim.api.nvim_buf_set_keymap(main_buf, "n", "<Up>", "<Cmd>lua require('mbuffers').select_filter_up()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(main_buf, "n", "<CR>", "<Cmd>lua require('mbuffers').select_buffer()<CR>", { noremap = true, silent = true })
 end
 
 -- перехват движения вверх
@@ -175,9 +176,9 @@ local function create_filter_window()
 		vim.cmd("star")
 
     -- Устанавливаем клавишу Esc для закрытия окна
-    vim.api.nvim_buf_set_keymap(filter_buf, "i", "<Esc>", "<Cmd>lua require('my.module').close_mbuffers()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(filter_buf, "i", "<CR>", "<Cmd>lua require('my.module').select_main_window()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(filter_buf, "i", "<Down>", "<Cmd>lua require('my.module').select_main_window()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(filter_buf, "i", "<Esc>", "<Cmd>lua require('mbuffers').close()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(filter_buf, "i", "<CR>", "<Cmd>lua require('mbuffers').select_main_window()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(filter_buf, "i", "<Down>", "<Cmd>lua require('mbuffers').select_main_window()<CR>", { noremap = true, silent = true })
 
     -- Устанавливаем обработчик ввода текста
     -- local buf_number = vim.api.nvim_buf_get_number(filter_buf) -- Номер буфера
@@ -209,9 +210,11 @@ end
 -- Функция для выбора буфера
 function M.select_buffer()
 		local buf_number = tonumber(string.sub(vim.api.nvim_get_current_line(), 2, 4))
-		M.close_mbuffers()
+		M.close()
     -- Переключаемся на выбранный буфер
-    vim.api.nvim_set_current_buf(vim.fn.bufnr(buf_number))
+    -- vim.api.nvim_set_current_buf(vim.fn.bufnr(buf_number))
+		vim.api.nvim_win_set_buf(current_win, vim.fn.bufnr(buf_number))
+    vim.api.nvim_set_current_win(current_win)
 end
 
 -- Функция для переключение на окно с буферами 
@@ -244,7 +247,7 @@ function M.select_filter_window()
 		vim.cmd("star")
 end
 
-function M.close_mbuffers()
+function M.close()
     -- Закрываем окна для фильтра и буфероф
     vim.api.nvim_win_close(filter_win, true)
 		vim.api.nvim_buf_delete(filter_buf, { force = true })
@@ -256,13 +259,13 @@ end
 
 function M.setup(options)
 	M.config = vim.tbl_deep_extend("force", M.config, options or {})
-
 	vim.api.nvim_create_user_command("StartMbuffers", M.start, {})
 end
 
 -- Функция для запуска менеджера буферов
 function M.start()
-	original_lines = get_open_buffers()
+	current_win = vim.api.nvim_get_current_win()
+	get_open_buffers()
 
   -- Создаём окно ввода фильтра
   create_filter_window()

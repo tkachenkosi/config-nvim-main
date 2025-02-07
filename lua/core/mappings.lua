@@ -2,7 +2,7 @@ local keymap = vim.keymap -- for conciseness
 
 -- Buffers
 vim.api.nvim_set_keymap("n", "<leader>q", "<cmd>qa<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>w", "<CMD>w<CR><CMD>mks! .session<CR>", {})		-- сохранить файл и сохранить сессию
+vim.api.nvim_set_keymap("n", "<leader>s", "<CMD>mks! .session<CR>", {})		-- сохранить сессию
 -- vim.api.nvim_set_keymap("n", "<leader>r", "<CMD>so .session<CR>", {})		-- открыть сессию
 vim.api.nvim_set_keymap('n', '<F2>', '<cmd>w<CR>', {})
 vim.api.nvim_set_keymap('i', '<F2>', '<Esc><cmd>w<CR>', {})
@@ -63,6 +63,7 @@ vim.api.nvim_set_keymap('n', '<leader>/', '<cmd>noh<CR>', {})
 -- vim.keymap.set('n', '<F12>', '<CMD>StartMbuffers<CR>')
 -- vim.keymap.set('i', '<F12>', '<Esc><CMD>StartMbuffers<CR>')
 vim.keymap.set({'n', 'i'}, '<F12>', function() require('mbuffers').start(); end)
+vim.keymap.set('n', '<leader><F12>', function() require('msession').start(); end)
 -- переключиться на предыдущий буфер
 vim.api.nvim_set_keymap('n', '<F10>', '<c-6>', {})
 vim.api.nvim_set_keymap('i', '<F10>', '<Esc><c-6>', {})
