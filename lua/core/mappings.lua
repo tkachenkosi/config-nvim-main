@@ -2,7 +2,7 @@ local keymap = vim.keymap -- for conciseness
 
 -- Buffers
 vim.api.nvim_set_keymap("n", "<leader>q", "<cmd>qa<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>s", "<CMD>mks! .session<CR>", {})		-- сохранить сессию
+vim.keymap.set("n", "<leader>s", function() require('msession').mks_session(); end)		-- сохранить сессию
 -- vim.api.nvim_set_keymap("n", "<leader>r", "<CMD>so .session<CR>", {})		-- открыть сессию
 vim.api.nvim_set_keymap('n', '<F2>', '<cmd>w<CR>', {})
 vim.api.nvim_set_keymap('i', '<F2>', '<Esc><cmd>w<CR>', {})
@@ -84,10 +84,12 @@ vim.api.nvim_set_keymap("n", "<Tab>", "<c-6>", {})
 vim.api.nvim_set_keymap('n', '<S-Tab>', '<cmd>bprevious<CR>', {})
 
 -- цветовые темы оформления
--- vim.keymap.set('n', '<leader>1', [[<cmd>colorscheme onedark<CR>]])
-keymap.set('n', '<leader>2', function() require('onedark').load(); end, {})
-keymap.set('n', '<leader>3', function() require('gruvboxsi').load(); end, {})
--- vim.keymap.set('n', '<leader>4', [[<cmd>colorscheme gruvboxmy<CR>]])
+-- vim.keymap.set('n', '<leader>2', [[<cmd>colorscheme onedark<CR>]])
+-- vim.keymap.set('n', '<leader>3', [[<cmd>colorscheme gruvboxsi<CR>]])
+-- keymap.set('n', '<leader>2', function() require('onedark').load(); end, {})
+-- keymap.set('n', '<leader>3', function() require('gruvboxsi').load(); end, {})
+vim.keymap.set('n', '<leader>2', function() vim.cmd.colorscheme('onedark'); end)
+vim.keymap.set('n', '<leader>3', function() vim.cmd.colorscheme('gruvboxsi'); end)
 
 -- отмена в привычном сочетании
 vim.api.nvim_set_keymap('n', '<c-z>', "<cmd>undo<CR>", {})
