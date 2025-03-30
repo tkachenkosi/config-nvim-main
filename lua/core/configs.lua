@@ -8,6 +8,8 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.smartindent = true  -- что то для отступов в новой строке
+vim.opt.autoindent = true		-- копирует отступы с текущей строки при добавлении новой
+vim.opt.breakindent = true	-- позволяет сохранять отступы виртуальных строк
 
 vim.opt.encoding="utf-8"
 vim.opt.fileformat="unix"
@@ -16,7 +18,6 @@ vim.opt.scrolloff = 3
 vim.opt.wrap = false
 vim.opt.termguicolors = true
 vim.opt.background = "dark" -- or "light" for light mode
-vim.opt.breakindent = true
 
 vim.opt.updatetime = 25000
 vim.opt.timeoutlen = 1600
@@ -41,3 +42,4 @@ vim.wo.signcolumn = 'yes'
 
 -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#112233" })
 vim.api.nvim_win_set_option(0, "cursorline", true) -- Включаем подсветку текущей строки
+

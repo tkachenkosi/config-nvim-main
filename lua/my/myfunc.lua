@@ -98,7 +98,7 @@ local function gen_snip_current_line()
   local start_pos = col
   while start_pos > 0 do
     local char = line:sub(start_pos, start_pos)
-    if char == " " or char == "\t" or char == ">" or char == "," then
+    if char == " " or char == "\t" or char == ">" or char == "," or char == "}" then
       break
     end
     start_pos = start_pos - 1

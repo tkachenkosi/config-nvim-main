@@ -1,6 +1,6 @@
 return {
   "tkachenkosi/gruvboxsi.nvim",
-  -- priority = 1000 , 
+  priority = 1000 , 
   config = function()
     local grouv = require("gruvboxsi")
     grouv.setup({

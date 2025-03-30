@@ -400,7 +400,7 @@ local function gen_snip_current_line()
   -- local substring = teg .. "</" .. line:sub(start_pos + 1, col) .. ">"
 
 	-- Модифицируем строку: добавляем выделенный фрагмент дважды
-  -- local new_line = line:sub(1, col) .. substring .. line:sub(col + 1)
+-- local new_line = line:sub(1, col) .. substring .. line:sub(col + 1)
 
   -- local new_line = line:sub(1, col) .. substring .. line:sub(col + 1)
   -- new_line = new_line:sub(1, start_pos) .. "<" .. new_line:sub(start_pos + 1)
@@ -410,4 +410,34 @@ local function gen_snip_current_line()
 end
 
 vim.keymap.set({'n','i'}, "<a-`>", function() gen_snip_current_line() end)
+
+
+
+
+
+
+-- для автодополнения LSP
+-- https://www.youtube.com/watch?v=ZiH59zg59kg
+-- vim.api.nvim_create_autocmd('LspAttach', {
+-- 	callback = function(ev)
+-- 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+-- 		if client:supports_method('textDocument/completion') then
+-- 			vim.lsp.completion.enable(true, client.id, ev.buf, {autotrigger = true})
+-- 		end
+-- 	end,
+-- })
+
+
+-- включить диагнастические сообщения
+vim.diagnostic.config({virtual_text = true})
+
+-- диагностика будет только на текущей строке
+vim.diagnostic.config({virtual_text = {current_line = true}})
+
+-- включить виртуальные строки
+vim.diagnostic.config({virtual_lines = {current_line = true}})
+
+
+
+
 

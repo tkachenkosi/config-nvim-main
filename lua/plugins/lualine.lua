@@ -3,7 +3,7 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {"kyazdani42/nvim-web-devicons", opt = true},
     -- dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function() 
+    config = function()
 
       local custom_gruvbox = require('lualine.themes.gruvbox-material')
       custom_gruvbox.normal.c.fg = '#80a0ff'    -- цвет названия файла в строке статуса (лунно голубой)
