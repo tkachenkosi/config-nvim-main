@@ -124,3 +124,13 @@ end
 
 vim.keymap.set({'n','i'}, "<a-`>", function() gen_snip_current_line() end)
 
+-- получение цвета фона текущец строки
+local function put_color()
+	local hl = vim.api.nvim_get_hl(0, { name = 'CursorLine' })
+	if hl.bg then
+		local bg_color = string.format('#%06x', hl.bg)
+		print("CursorLine bg color:", bg_color)
+	end
+end
+
+vim.keymap.set({'n','i'}, '<a-5>', function() put_color() end)
