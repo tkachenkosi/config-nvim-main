@@ -115,3 +115,6 @@ keymap.set('v', 'з', 'p')
 keymap.set('n', 'в', 'd')
 keymap.set('v', 'в', 'd')
 keymap.set('o', 'в', 'd')
+
+-- отключить запись макросов
+vim.keymap.set('n', 'q', '<Nop>', { noremap = true, silent = true })

@@ -1,0 +1,9 @@
+
+NVIM v0.11.0
+Build type: Release
+LuaJIT 2.1.1741730670
+
+   system vimrc file: "$VIM/sysinit.vim"
+  fall-back for $VIM: "/usr/local/share/nvim"
+
+Run :checkhealth for more info

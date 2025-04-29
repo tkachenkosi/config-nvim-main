@@ -47,7 +47,7 @@ return {
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
     vim.keymap.set('n', '<leader>fm', function() builtin.marks(); end)
     vim.keymap.set({'n', 'i'}, '<F9>', function() builtin.buffers(themes.get_dropdown({previewer=false})); end)
-    vim.keymap.set('n', '<C-Tab>', function() builtin.buffers(themes.get_dropdown({previewer=false})); end)
+    -- vim.keymap.set('n', '<C-Tab>', function() builtin.buffers(themes.get_dropdown({previewer=false})); end)
   end
     -- },
     -- {
