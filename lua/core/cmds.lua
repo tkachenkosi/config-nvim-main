@@ -16,10 +16,45 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- форматирование файлов go css js на запись
 vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = {'*.go', '*.css', '*.js', '*.ts', '*.svelte'},
+  -- pattern = {'*.go', '*.css', '*.js', '*.ts', '*.svelte'},
+  pattern = {'*.go', '*.css', '*.js', '*.ts'},
   callback = function()
     vim.lsp.buf.format({ async = false })
   end
 })
 
 
+-- Создаём свою команду :Rg для Quickfix (:vimgrep / :grep)
+-- :Rg go import :Rg js import
+-- ]q и [q - перемещение по результатам поиска
+vim.api.nvim_create_user_command("Rg", function(opts)
+  local args = opts.args
+  local file_type = nil
+
+  -- Парсим аргументы: если первый аргумент это известный тип
+  local first_arg = vim.split(args, " ")[1]
+  local file_types = {
+    go = "go", css = "css", js = "js", ts = "ts",
+    svelte = "svelte", html = "html", lua = "lua", rs = "rust"
+  }
+
+  if file_types[first_arg] then
+    file_type = file_types[first_arg]
+    -- Убираем тип из аргументов поиска
+    args = args:gsub("^" .. first_arg .. "%s+", "")
+  end
+
+  -- local cmd = "rg --vimgrep --smart-case --hidden --glob '!testdata/**' --glob '!node_modules/**' --glob '!dist/**'"
+  -- local cmd = "rg --vimgrep --smart-case --no-hidden --glob '!testdata/*' --glob '!node_modules/*' --glob '!dist/*'"
+  local cmd = "rg --vimgrep"
+  if file_type then
+    cmd = cmd .. " --type " .. file_type
+  end
+  cmd = cmd .. " " .. args
+
+  local result = vim.fn.systemlist(cmd)
+  local title = file_type and ("Rg " .. file_type .. ": " .. args) or ("Rg: " .. args)
+
+  vim.fn.setqflist({}, ' ', { title = title, lines = result })
+  vim.cmd("copen")
+end, { nargs = "+" })

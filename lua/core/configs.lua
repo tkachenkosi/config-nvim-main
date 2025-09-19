@@ -50,38 +50,40 @@ vim.opt.laststatus = 2
 vim.opt.showmode = false
 vim.opt.shortmess:append("sIc")
 
+-- цвет фона строки статуса #7c6f64
+-- варианты оформление номеров строки и колонки
+-- " %l/%L : %v",
+-- "%5.5l/%L : %v",
+-- mode = {bg = '#80a0ff', bold = true},
+-- mode = {fg = '#0033cc', bold = true},
+-- modi = {bg = '#e9c76b', fg = '#872d33', bold = true},
 
-local config = {
-  colors = {
-    mode = { bg = '#80a0ff', bold = true },
-    file_name = { bold = true },
-    modified = { bold = true},
-    line_no = {},
-    -- col_no = {},
-    -- total_lines = {bg = '#ebdbb2', fg = '#504945'}
+-- modi = {bg = '#e9c76b', fg = '#0033cc', bold = true},
+-- "%#Stlline# %l:%v %L%*",
+
+-- оттенки красного: #73262b  #662227
+
+local colors = {
+    mode = {bg = '#ada299', fg = '#0033cc', bold = true},
+    file = {bold = true},
+    modi = {bg = '#e9c76b', fg = '#662227', bold = true},
+		buff = {bg = '#96887d'},
+		line = {bg = '#ada299'},
+		lnall = {bg = '#c4bcb5'},
   }
+
+local stl = {
+  "%#Stlmode#%-2{%v:lua.vim.fn.mode()%}%*",
+  "%#Stlfile# %-.50f%* ",
+  "%#Stlmodi#%-M%*",
+  "%=",
+  "%#Stlbuff#%n%*",
+  "%#Stlline# %l:%v %*",
+  "%#Stllnall#%L%*",
 }
 
-local function setup_highlights()
-  for group, colors in pairs(config.colors) do
-    vim.api.nvim_set_hl(0, 'Status'..group:gsub("_", ""), colors)
-  end
+for group, color in pairs(colors) do
+	vim.api.nvim_set_hl(0, "Stl"..group, color)
 end
 
-local function status_line()
-  local mode = "%#Statusmode#%-5{%v:lua.string.upper(v:lua.vim.fn.mode())%}%*"
-  local file_name = "%#Statusfilename#%-.24t%*"
-  local modified = "%#Statusmodified# %-M%*"
-  local right_align = "%="
-  local line_no = "%#Statuslineno#%6.6l:%*"
-  local line_cl = "%#Statuslineno#%-3.3v%*"
-  local line_all = "%#Statuslineno#%6.6L%*"
-
-  return table.concat({
-    mode, file_name, modified, right_align, line_no, line_cl, line_all
-  }, "")
-end
-
-setup_highlights()
-vim.opt.statusline = status_line()
-
+vim.opt.statusline = table.concat(stl, "")

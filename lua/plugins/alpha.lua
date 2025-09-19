@@ -4,7 +4,7 @@ return {
     config = function ()
         local startify = require("alpha.themes.startify")
         require("alpha").setup(startify.config)
-        startify.section.header.val = "© Config by Tkachenkosi 2024"
+        startify.section.header.val = "© Config by Tkachenkosi 2025"
         startify.section.bottom_buttons.val = {
           startify.button("s", "session", ":so .session<CR>"),
           startify.button("c", "config", ":e ~/.config/nvim/lua/core/configs.lua<CR>"),
