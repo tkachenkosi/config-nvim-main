@@ -41,7 +41,8 @@ vim.wo.signcolumn = 'yes'
 -- vim.opt.hidden = true
 
 -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#112233" })
-vim.api.nvim_win_set_option(0, "cursorline", true) -- Включаем подсветку текущей строки
+-- vim.api.nvim_win_set_option(0, "cursorline", true) -- Включаем подсветку текущей строки (команда устарела)
+vim.opt.cursorline = true -- Включаем подсветку текущей строки
 
 -- vim.api.statusline = %r%t%{(&mod?'*':'')}
 -- set statusline=%r%t%{(&mod?'*':'')}
@@ -49,6 +50,11 @@ vim.api.nvim_win_set_option(0, "cursorline", true) -- Включаем подс�
 vim.opt.laststatus = 2
 vim.opt.showmode = false
 vim.opt.shortmess:append("sIc")
+
+-- тестирование функции alpha
+-- vim.keymap.set('n', '<F9>', function() require('malpha').open(); end, {})
+-- vim.keymap.set('n', '<leader>2', function() vim.cmd.colorscheme('onedark'); end)
+
 
 -- цвет фона строки статуса #7c6f64
 -- варианты оформление номеров строки и колонки

@@ -2,7 +2,8 @@ local keymap = vim.keymap -- for conciseness
 
 -- Buffers
 vim.api.nvim_set_keymap("n", "<leader>q", "<cmd>qa<CR>", {})
-vim.keymap.set("n", "<leader>s", function() require('msession').mks_session(); end)		-- сохранить сессию
+-- vim.keymap.set("n", "<leader>s", function() require('msession').mks_session(); end)		-- сохранить сессию
+vim.keymap.set("n", "<leader>s", function() vim.cmd("mks! .session"); print("Save Ok. "..vim.fn.getcwd()); end)		-- сохранить сессию
 -- vim.api.nvim_set_keymap("n", "<leader>r", "<CMD>so .session<CR>", {})		-- открыть сессию
 vim.api.nvim_set_keymap('n', '<F2>', '<cmd>w<CR>', {})
 vim.api.nvim_set_keymap('i', '<F2>', '<Esc><cmd>w<CR>', {})

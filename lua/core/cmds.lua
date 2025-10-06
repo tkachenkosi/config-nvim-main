@@ -26,6 +26,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 -- Создаём свою команду :Rg для Quickfix (:vimgrep / :grep)
 -- :Rg go import :Rg js import
+-- :Rg js -w app - поиск в файлах *.js целого слова "app"
+-- :Rg import - поиск "import" во всех файлах которые разрешены в конфиге rj и .ignoge
 -- ]q и [q - перемещение по результатам поиска
 vim.api.nvim_create_user_command("Rg", function(opts)
   local args = opts.args
