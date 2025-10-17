@@ -1,5 +1,4 @@
 return {
-  {
     "williamboman/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonUpdate" },
     build = ":MasonUpdate",
@@ -16,5 +15,4 @@ return {
         max_concurrent_installers = 4,
       })
     end,
-  },
 }

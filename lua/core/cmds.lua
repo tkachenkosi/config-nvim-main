@@ -2,17 +2,30 @@
 vim.cmd([[autocmd BufEnter * set fo-=c fo-=r fo-=o]])
 
 -- кратковременно подсвечивает скопированную строку или блок
-local YankHighlightGrp = vim.api.nvim_create_augroup('YankHighlightGrp', {})
+-- local YankHighlightGrp = vim.api.nvim_create_augroup('YankHighlightGrp', {})
+
+-- vim.api.nvim_create_autocmd('TextYankPost', {
+-- 	group  = vim.api.nvim_create_augroup('YankHighlightGrp', {}),
+--   pattern = '*',
+--   callback = function()
+--     vim.highlight.on_yank({
+--       higroup = 'IncSearch',
+--       timeout = 30,
+--     })
+--   end,
+-- })
+
+
 vim.api.nvim_create_autocmd('TextYankPost', {
-	group = YankHighlightGrp,
-  pattern = '*',
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank({
-      higroup = 'IncSearch',
-      timeout = 30,
-    })
+      timeout = 55,
+		})
   end,
 })
+
 
 -- форматирование файлов go css js на запись
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -43,19 +56,20 @@ vim.api.nvim_create_user_command("Rg", function(opts)
   if file_types[first_arg] then
     file_type = file_types[first_arg]
     -- Убираем тип из аргументов поиска
-    args = args:gsub("^" .. first_arg .. "%s+", "")
+    args = args:gsub("^"..first_arg.."%s+", "")
   end
 
   -- local cmd = "rg --vimgrep --smart-case --hidden --glob '!testdata/**' --glob '!node_modules/**' --glob '!dist/**'"
   -- local cmd = "rg --vimgrep --smart-case --no-hidden --glob '!testdata/*' --glob '!node_modules/*' --glob '!dist/*'"
   local cmd = "rg --vimgrep"
   if file_type then
-    cmd = cmd .. " --type " .. file_type
+    cmd = cmd.." --type "..file_type
   end
-  cmd = cmd .. " " .. args
+  cmd = cmd.." "..args
 
   local result = vim.fn.systemlist(cmd)
-  local title = file_type and ("Rg " .. file_type .. ": " .. args) or ("Rg: " .. args)
+  -- local title = file_type and ('Rg '..file_type..' '..args) or ('Rg '..args)
+  local title = file_type and string.format('(%d) Rg %s %s', #result, file_type, args) or string.format('(%d) Rg %s', #result, args)
 
   vim.fn.setqflist({}, ' ', { title = title, lines = result })
   vim.cmd("copen")

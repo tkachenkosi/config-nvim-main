@@ -134,3 +134,43 @@ local function put_color()
 end
 
 vim.keymap.set({'n','i'}, '<a-5>', function() put_color() end)
+
+
+-- читает слово под курсором, определяет расширение файла 
+-- запускает Rg <ext_file> <current_word>
+local function QuickfixCurrWord()
+		local current_mode = vim.api.nvim_get_mode().mode
+    local current_word = ""
+
+		-- в зависимости от режима
+		if current_mode == 'n' then
+			-- слово под курсором
+			current_word = vim.fn.expand('<cword>')
+		elseif current_mode == 'v' then
+			-- Visual mode (V - linewise, v - charwise, Ctrl-V - blockwise)
+			-- Сохраняем выделение в регистр "
+			vim.cmd('noautocmd normal! "xy')
+			-- Получаем выделенный текст из регистра x
+			-- Убираем последний символ если это перевод строки (в визуальном режиме часто добавляется)
+			current_word = vim.fn.getreg('x'):gsub('\n$', '')
+		end
+
+    -- расширение файла
+    local filename = vim.fn.expand('%:t') -- имя файла с расширением
+    local ext_file = vim.fn.fnamemodify(filename, ':e') -- только расширение
+
+    -- Если файл без расширения
+    if ext_file == '' or current_word == '' then
+			vim.print(string.format("Error: current_word: '%s', ext_file: '%s'", current_word, ext_file))
+			return
+    end
+
+		-- вызываем поиск rg через системные функции
+		vim.fn.setqflist({}, ' ', { title = 'Rg '..ext_file..' '..current_word, lines = vim.fn.systemlist('rg --vimgrep --type '..ext_file..' '..current_word) })
+		vim.cmd("copen")
+
+		-- вызываем пользовательскую функцию :Rg
+		-- vim.cmd(string.format("Rg %s %s", ext_file, current_word))
+end
+
+vim.keymap.set({'n','v'}, '<leader><F7>', function() QuickfixCurrWord() end)

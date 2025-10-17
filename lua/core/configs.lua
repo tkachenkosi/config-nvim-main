@@ -69,27 +69,44 @@ vim.opt.shortmess:append("sIc")
 
 -- оттенки красного: #73262b  #662227
 
-local colors = {
-    mode = {bg = '#ada299', fg = '#0033cc', bold = true},
-    file = {bold = true},
-    modi = {bg = '#e9c76b', fg = '#662227', bold = true},
-		buff = {bg = '#96887d'},
-		line = {bg = '#ada299'},
-		lnall = {bg = '#c4bcb5'},
-  }
+-- local colors = {
+-- 	mode = {bg = '#ada299', fg = '#0033cc', bold = true},
+-- 	file = {bold = true},
+-- 	modi = {bg = '#e9c76b', fg = '#662227', bold = true},
+-- 	buff = {bg = '#96887d'},
+-- 	line = {bg = '#ada299'},
+-- 	lines = {bg = '#c4bcb5'},
+-- }
 
-local stl = {
-  "%#Stlmode#%-2{%v:lua.vim.fn.mode()%}%*",
-  "%#Stlfile# %-.50f%* ",
-  "%#Stlmodi#%-M%*",
-  "%=",
-  "%#Stlbuff#%n%*",
-  "%#Stlline# %l:%v %*",
-  "%#Stllnall#%L%*",
-}
+-- for group, color in pairs(colors) do
 
-for group, color in pairs(colors) do
-	vim.api.nvim_set_hl(0, "Stl"..group, color)
+-- local stl = {
+--   "%#HL_mode#%-2{%v:lua.vim.fn.mode()%}%*",
+--   "%#HL_file# %-.50f%* ",
+--   "%#HL_modi#%-M%*",
+--   "%=",
+--   "%#HL_buff#%n%*",
+--   "%#HL_line# %l:%v %*",
+--   "%#HL_lines#%L%*",
+-- }
+
+-- vim.opt.statusline = table.concat(stl, "")
+
+for group, color in pairs({
+	mode = {bg = '#ada299', fg = '#0033cc', bold = true},
+	file = {bold = true},
+	modi = {bg = '#e9c76b', fg = '#662227', bold = true},
+	buff = {bg = '#96887d'},
+	line = {bg = '#ada299'},
+	lines = {bg = '#c4bcb5'}}) do
+	vim.api.nvim_set_hl(0, "HL_"..group, color)
 end
 
-vim.opt.statusline = table.concat(stl, "")
+vim.opt.statusline = table.concat({
+  "%#HL_mode# %-3{%v:lua.vim.fn.mode()%}%*",
+  "%#HL_file# %-.50f%* ",
+  "%#HL_modi#%-M%*",
+  "%=",
+  "%#HL_buff#%n%*",
+  "%#HL_line# %l:%v %*",
+  "%#HL_lines#%L%*"}, "")

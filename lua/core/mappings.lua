@@ -55,16 +55,18 @@ vim.api.nvim_set_keymap('i', '<a-p>', [[<Esc>"tpa]], {})
 -- vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
 -- переходит в левое окно (Exploer) и его закрывает.
 -- vim.keymap.set("n", "<a-h>", ":wincmd h<CR>:wincmd q<CR>")
-vim.api.nvim_set_keymap("n", "<leader>x", ":wincmd h<CR>:wincmd q<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>x", "<cmd>wincmd h<CR><cmd>wincmd q<CR>", {})
 
-vim.api.nvim_set_keymap('n', '<c-s>', '<cmd>set relativenumber!<CR>', {})
+-- vim.api.nvim_set_keymap('n', '<c-s>', '<cmd>set relativenumber!<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>/', '<cmd>noh<CR>', {})
 
 -- открыть окно со списоком буферов
 -- vim.keymap.set('n', '<F12>', '<CMD>StartMbuffers<CR>')
 -- vim.keymap.set('i', '<F12>', '<Esc><CMD>StartMbuffers<CR>')
 vim.keymap.set({'n', 'i'}, '<F12>', function() require('mbuffers').start(); end)
-vim.keymap.set('n', '<leader><F12>', function() require('msession').start(); end)
+-- отключим временно
+-- vim.keymap.set('n', '<leader><F12>', function() require('msession').start(); end)
+
 -- переключиться на предыдущий буфер
 vim.api.nvim_set_keymap('n', '<F10>', '<c-6>', {})
 vim.api.nvim_set_keymap('i', '<F10>', '<Esc><c-6>', {})

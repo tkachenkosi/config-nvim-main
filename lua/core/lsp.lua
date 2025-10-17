@@ -25,6 +25,9 @@ vim.lsp.enable(servers)
 
 -- === Настройки автодополнения (без nvim-cmp) ===
 vim.opt.completeopt = { "menu", "menuone", "noselect", "popup", "fuzzy" }
+-- не показывать окно документации (описание функций)
+-- vim.opt.completeopt = { "menu", "menuone", "noselect", "fuzzy" }
+vim.lsp.completion.document_enable = false
 
 -- Общие keymaps при LspAttach
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -42,30 +45,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
       end, { buffer = ev.buf, desc = "LSP Completion" })
     end
 
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-		vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-		vim.keymap.set("n", "<Leader>D", vim.lsp.buf.type_definition, opts)
-		vim.keymap.set("n", "qr", vim.lsp.buf.references, opts)
-		vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, { buffer = ev.buf, desc = "Rename Symbol" })
-		vim.keymap.set({ "n", "v" }, "<Leader>la", vim.lsp.buf.code_action, opts)
-		vim.keymap.set("n", "<Leader>lf", function()
-				vim.lsp.buf.format({ async = true })
-		end, opts)
+		vim.keymap.set("n", "grd", vim.lsp.buf.definition, opts)
+		-- vim.keymap.set("n", "<Leader>D", vim.lsp.buf.type_definition, opts)
 
   end,
 })
 
 vim.diagnostic.config({
-  -- Use the default configuration
-  -- virtual_lines = true
+	-- virtual_text = true,
+	virtual_text = { current_line = true },
 
-  -- Alternatively, customize specific options
   update_in_insert = false,
   -- underline = true,
-  virtual_lines = {
-    -- Only show virtual line diagnostics for the current cursor line
-    current_line = true,
-  },
+
+  -- virtual_lines = true
+  -- virtual_lines = { current_line = true },
 })
