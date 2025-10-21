@@ -1,6 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	buld = ":TSUpdate",
+	build = ":TSUpdate",
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {"c", "cpp","lua","typescript","javascript",
@@ -10,6 +10,7 @@ return {
 			sync_install = false,
 			highlight = { enable = true, },
 			indent = { enable = false,	},
+			additional_vim_regex_highlighting = false, -- только подсветку только treesitter (vim.opt.syntax = "OFF")
 		})
 	end,
 }

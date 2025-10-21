@@ -51,6 +51,11 @@ vim.opt.laststatus = 2
 vim.opt.showmode = false
 vim.opt.shortmess:append("sIc")
 
+vim.opt.syntax = "OFF"  -- ВСЕ ЗАГЛАВНЫЕ (иногда важно)
+vim.opt_global.syntax = "OFF"
+vim.cmd("syntax off")   -- Дублируем командой на всякий случай
+
+
 -- тестирование функции alpha
 -- vim.keymap.set('n', '<F9>', function() require('malpha').open(); end, {})
 -- vim.keymap.set('n', '<leader>2', function() vim.cmd.colorscheme('onedark'); end)

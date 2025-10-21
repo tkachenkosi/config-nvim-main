@@ -74,3 +74,13 @@ vim.api.nvim_create_user_command("Rg", function(opts)
   vim.fn.setqflist({}, ' ', { title = title, lines = result })
   vim.cmd("copen")
 end, { nargs = "+" })
+
+-- Добавьте этот автокоманд
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "go",
+    callback = function()
+        vim.opt_local.syntax = "OFF"
+        vim.cmd("syntax off")
+        vim.cmd("setlocal syntax=OFF")
+    end
+})
