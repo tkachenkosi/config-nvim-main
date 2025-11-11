@@ -31,6 +31,8 @@ return {
         -- goDeclaration = { fg = "#0084ff" },
         -- goDeclType = { fg = "#0084ff" },
         -- goConstants = { fg = "#0084ff" },
+        -- Function = { fg = "#0084ff", bold = true },
+        -- ["@keyword.function"] = { fg = "#fb4934", bold = true },
         ["@keyword.function"] = { bold = true },
 				-- ["@keyword.type"] = { fg = "#0084ff" },
 				-- ["@type"] = { fg = "#0084ff" },

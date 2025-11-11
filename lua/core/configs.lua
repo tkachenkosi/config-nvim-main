@@ -69,7 +69,7 @@ vim.cmd("syntax off")   -- Дублируем командой на всякий
 -- mode = {fg = '#0033cc', bold = true},
 -- modi = {bg = '#e9c76b', fg = '#872d33', bold = true},
 
--- modi = {bg = '#e9c76b', fg = '#0033cc', bold = true},
+
 -- "%#Stlline# %l:%v %L%*",
 
 -- оттенки красного: #73262b  #662227

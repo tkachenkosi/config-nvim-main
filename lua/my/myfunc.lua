@@ -78,6 +78,7 @@ local function gen_json_current_line()
 end
 
 -- Создаём команду для вызова функции
+-- Использование: вводим только тег dev, a, strong, ... нажимаем a-` получаем законченный тег
 -- vim.api.nvim_create_user_command("JsonLine", gen_json_current_line, {})
 -- vim.api.nvim_set_keymap('n', '<a-2>', "<CMD>JsonLine<CR>")
 vim.keymap.set({'n','i'}, '<a-1>', function() gen_json_current_line() end)
@@ -106,11 +107,29 @@ local function gen_snip_current_line()
 
 	local teg = ">"
 	local col_new = col
-	local col_cur = col + 2		-- новое положение курсора
-	if line:sub(col, col) == "." then
+	local col_cur = col + 2									-- новое положение курсора
+	local ch2 = line:sub(col, col)					-- последний символ
+	local ch1 = " "
+
+	if ch2 == "." then
+		ch1 = line:sub(col - 1, col - 1)
+	end
+
+	if ch1 == "#" and ch2 == "." then
+		col_new = col - 2
+		teg = [[ id="" class="">]]
+		col_cur = col + 15
+	elseif ch1 == "a" and ch2 == "." then
+		col_new = col - 1
+		teg = [[ class="" href="">]]
+		col_cur = col + 17
+	elseif ch2 == "." then
 		col_new = col - 1
 		teg = [[ class="">]]
-		col_cur = col + 10
+		col_cur = col + 9
+	elseif ch2 == "a" then
+		teg = [[ href="">]]
+		col_cur = col + 8
 	end
 
   local substring = teg .. "</" .. line:sub(start_pos + 1, col_new) .. ">"

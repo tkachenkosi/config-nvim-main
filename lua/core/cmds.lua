@@ -76,11 +76,26 @@ vim.api.nvim_create_user_command("Rg", function(opts)
 end, { nargs = "+" })
 
 -- Добавьте этот автокоманд
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "go",
-    callback = function()
-        vim.opt_local.syntax = "OFF"
-        vim.cmd("syntax off")
-        vim.cmd("setlocal syntax=OFF")
-    end
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "go",
+--     callback = function()
+--         vim.opt_local.syntax = "OFF"
+--         vim.cmd("syntax off")
+--         vim.cmd("setlocal syntax=OFF")
+--     end
+-- })
+
+-- привязка keymap для окна quickfix
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  callback = function()
+    -- vim.keymap.set('n', '<C-q>', ':cclose<CR>', { buffer = true, nowait = true })
+    -- Можно добавить и другие удобные маппинги для quickfix окна
+    vim.keymap.set('n', '<Esc>', ':cclose<CR>', { buffer = true, nowait = true })
+    vim.keymap.set('n', 'q', ':cclose<CR>', { buffer = true, nowait = true })
+  end
 })
+
+
+
+
