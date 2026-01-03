@@ -55,7 +55,6 @@ vim.api.nvim_set_keymap('i', '<a-p>', [[<Esc>"tpa]], {})
 -- vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
 -- переходит в левое окно (Exploer) и его закрывает.
 -- vim.keymap.set("n", "<a-h>", ":wincmd h<CR>:wincmd q<CR>")
-vim.api.nvim_set_keymap("n", "<leader>x", "<cmd>wincmd h<CR><cmd>wincmd q<CR>", {})
 
 -- vim.api.nvim_set_keymap('n', '<c-s>', '<cmd>set relativenumber!<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>/', '<cmd>noh<CR>', {})
@@ -77,7 +76,10 @@ vim.api.nvim_set_keymap("n", ";", ":", {desc = "CMD enter comand mode"})
 
 -- встроенный Exploer (открываем слева окно в 30 колонок)
 -- keymap('n', '<leader><F3>', '<Esc>:Explore<CR>', {})
-vim.api.nvim_set_keymap("n", "<leader><F3>", "<cmd>30vs +Exp<CR>", {})
+-- уже не нужно так как есть <leader>e
+-- vim.api.nvim_set_keymap("n", "<leader><F3>", "<cmd>30vs +Exp<CR>", {})
+-- устарело
+-- vim.api.nvim_set_keymap("n", "<leader>x", "<cmd>wincmd h<CR><cmd>wincmd q<CR>", {})
 
 -- vim.keymap.set("n", "//", ":vsplit<CR>")
 -- vim.keymap.set("n", "||", ":split<CR>")
