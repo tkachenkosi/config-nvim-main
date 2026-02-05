@@ -1,13 +1,13 @@
 -- список серверов
 local servers = {
-    "lua_ls",
+    -- "lua_ls",
     "gopls",
     "ts_ls",
     "html",
     "cssls",
-    "svelte",
-		"clangd",
-		"rust_analyzer",
+    -- "svelte",
+		-- "clangd",
+		-- "rust_analyzer",
 }
 
 -- грузим конфиги серверов из /lsp

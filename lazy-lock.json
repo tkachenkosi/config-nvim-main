@@ -1,8 +1,8 @@
 {
   "gruvboxsi.nvim": { "branch": "master", "commit": "e53fe6745614950d6f042c529853ecb61b68870a" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
-  "malpha.nvim": { "branch": "master", "commit": "784257b49b583ffa58ee86903e489a5d47ce52f8" },
-  "mason.nvim": { "branch": "main", "commit": "57e5a8addb8c71fb063ee4acda466c7cf6ad2800" },
+  "malpha.nvim": { "branch": "master", "commit": "d95e19f0bf91d936aac381dc2e64834a21af48e2" },
+  "mason.nvim": { "branch": "main", "commit": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65" },
   "mautopairs.nvim": { "branch": "master", "commit": "9d585f7feff7c403bd0a56d31403eccc3e6c2999" },
   "mbuffers.nvim": { "branch": "master", "commit": "15235a5ebfaf61db1b46016f6a41b8a2ea242951" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" }

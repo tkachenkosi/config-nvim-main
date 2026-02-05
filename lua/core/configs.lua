@@ -51,6 +51,7 @@ vim.opt.laststatus = 2
 vim.opt.showmode = false
 vim.opt.shortmess:append("sIc")
 
+-- настройки для treesister
 vim.opt.syntax = "OFF"  -- ВСЕ ЗАГЛАВНЫЕ (иногда важно)
 vim.opt_global.syntax = "OFF"
 vim.cmd("syntax off")   -- Дублируем командой на всякий случай

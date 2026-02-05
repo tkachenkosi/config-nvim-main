@@ -6,8 +6,8 @@ return {
     filetypes = { "rust" },
     settings = {
         ["rust-analyzer"] = {
-            cargo = { 
-                allFeatures = true 
+            cargo = {
+                allFeatures = true
             },
             checkOnSave = true, -- или false, если не хотите проверку при сохранении
             check = {
