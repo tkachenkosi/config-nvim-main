@@ -2,7 +2,7 @@ return {
 	name = "gopls",
 	-- cmd = { "gopls" },
 	cmd = { os.getenv("HOME") .. "/.local/share/nvim/mason/bin/gopls" },
-	filetypes = { "go", "gomod", "gowork", "gotmpl", "gosum" }, -- File types that this server will handle
+	filetypes = { "go", "gomod" }, -- File types that this server will handle
 	root_markers = { "go.mod", "go.work", ".git", ".session" },      -- Markers to identify the root of the project
 	settings = {
 		gopls = {

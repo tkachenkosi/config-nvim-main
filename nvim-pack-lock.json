@@ -1,0 +1,34 @@
+{
+  "plugins": {
+    "gruvboxsi.nvim": {
+      "rev": "e53fe6745614950d6f042c529853ecb61b68870a",
+      "src": "https://github.com/tkachenkosi/gruvboxsi.nvim.git",
+      "version": "'master'"
+    },
+    "malpha.nvim": {
+      "rev": "d95e19f0bf91d936aac381dc2e64834a21af48e2",
+      "src": "https://github.com/tkachenkosi/malpha.nvim.git",
+      "version": "'master'"
+    },
+    "mason.nvim": {
+      "rev": "b03fb0f20bc1d43daf558cda981a2be22e73ac42",
+      "src": "https://github.com/mason-org/mason.nvim.git",
+      "version": "'main'"
+    },
+    "mautopairs.nvim": {
+      "rev": "9d585f7feff7c403bd0a56d31403eccc3e6c2999",
+      "src": "https://github.com/tkachenkosi/mautopairs.nvim.git",
+      "version": "'master'"
+    },
+    "mbuffers.nvim": {
+      "rev": "26e9f103fe060b865416db7979e7897f5a4c7a60",
+      "src": "https://github.com/tkachenkosi/mbuffers.nvim.git",
+      "version": "'master'"
+    },
+    "nvim-treesitter": {
+      "rev": "cf12346a3414fa1b06af75c79faebe7f76df080a",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'master'"
+    }
+  }
+}

@@ -74,9 +74,9 @@ vim.keymap.set("n", ";", ":", {noremap = true, silent = false})
 vim.keymap.set("n", "<Tab>", "<c-6>", opts)
 vim.keymap.set('n', '<S-Tab>', '<cmd>bprevious<CR>', opts)
 
--- цветовые темы оформления
-vim.keymap.set('n', '<leader>2', function() vim.cmd.colorscheme('onedark'); end, opts)
-vim.keymap.set('n', '<leader>3', function() vim.cmd.colorscheme('gruvboxsi'); end, opts)
+-- цветовые темы оформления (пока не работают)
+-- vim.keymap.set('n', '<leader>2', function() vim.cmd.colorscheme('onedark'); end, opts)
+-- vim.keymap.set('n', '<leader>3', function() vim.cmd.colorscheme('gruvboxsi'); end, opts)
 
 -- отмена в привычном сочетании
 vim.keymap.set('n', '<C-z>', "<cmd>undo<CR>", opts)
@@ -106,3 +106,5 @@ vim.keymap.set('o', 'в', 'd', opts)
 -- отключить запись макросов
 vim.keymap.set('n', 'q', '<Nop>', opts)
 
+-- обновить packs
+vim.keymap.set('n', '<leader>1', function() vim.pack.update(); end, opts)
