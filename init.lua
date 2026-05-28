@@ -9,7 +9,7 @@ require("my.myfunc")
 require('packs.gruvboxsi')
 require('packs.mautopairs')
 require('packs.mbuffers')
-require('packs.treesitter')
+require('packs.nvim-treesitter')
 require('packs.malpha')
 -- временно отключен, включается для обновления lsp-servers
 -- require('packs.mason')
