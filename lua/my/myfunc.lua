@@ -6,55 +6,6 @@
 
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#2b2b2b" })
 
-local tab_snippet = {
-	go={{'if err != nil {','  slog.Error(err.Error())','  return fmt.Errorf("ошибка %v", err)','}'},{'func main() {','  fmt.Println("")','}'},{'for k,v := range  {','}'}},
-	html={{'<div id="app"></div>'},{"<button onclick={increment}></button>"},{"<li></li>"}},
-	css={{'background-color: var(--color_box);'},{'font-weight: bold;'},{'text-decoration: none;'}},
-	js={{"const elResult = document.querySelector('.result');"},{"btn.addEventListener('click', (event) => {","});"},{"console.log('');"}},
-	ts={{"const elResult = document.querySelector('.result');"},{"btn.addEventListener('click', (event) => {","});"},{'const x: number = 0;'}},
-	svelte={{'<script lang="ts">', '</script>','<main>','</main>','<style>','</style>'},{"import Counter from './lib/Counter.svelte'"},{"let count: number = $state(0)"}}
-}
-
--- Функция для получения расширения файла
-local function get_file_ext()
-  -- Получаем имя файла текущего буфера
-  local filename = vim.fn.expand("%:t")  -- %:t возвращает только имя файла (без пути)
-
-  -- Находим расширение файла
-  local extension = filename:match("^.+(%..+)$")
-
-  -- Если расширение найдено, удаляем точку в начале
-  if extension then
-    return extension:sub(2)  -- Убираем точку (первый символ)
-  else
-    return nil  -- Если расширения нет
-  end
-end
-
--- печатает таблицу
-local function print_snippet(lines)
-	-- Получаем текущую позицию курсора
-	local cursor_pos = vim.api.nvim_win_get_cursor(0)
-	local row, col = cursor_pos[1], cursor_pos[2]
-
-	table.insert(lines, '')
-
-	-- Вставляем строки после текущей позиции курсора
-	vim.api.nvim_buf_set_lines(0, row, row, false, lines)
-
-	-- Перемещаем курсор на новую строку
-	vim.api.nvim_win_set_cursor(0, {row + #lines, col})
-end
-
-local function put_snippet(select)
-print_snippet(tab_snippet[get_file_ext()][select])
-end
-
-vim.keymap.set({'n','i'}, '<a-2>', function() put_snippet(1) end)
-vim.keymap.set({'n','i'}, '<a-3>', function() put_snippet(2) end)
-vim.keymap.set({'n','i'}, '<a-4>', function() put_snippet(3) end)
-
-
 -- добовляет тэги к полям структуры на golang
 local function gen_json_current_line()
 	if get_file_ext() ~= "go" then

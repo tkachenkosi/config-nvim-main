@@ -1,34 +1,54 @@
 {
   "plugins": {
+    "diffview-plus.nvim": {
+      "rev": "276d8a79bd90aece4960cf8bcf292cc7a35a4f57",
+      "src": "https://github.com/dlyongemallo/diffview-plus.nvim.git",
+      "version": "'main'"
+    },
     "gruvboxsi.nvim": {
-      "rev": "e53fe6745614950d6f042c529853ecb61b68870a",
+      "rev": "5633fa1047f9a55cc545b035262ed7b6a32f50fa",
       "src": "https://github.com/tkachenkosi/gruvboxsi.nvim.git",
       "version": "'master'"
     },
     "malpha.nvim": {
-      "rev": "9f27b7278861befdab4f8285bc28099078ab5881",
+      "rev": "800f83f2f6514c44f258a991e8f8198e7efe73b9",
       "src": "https://github.com/tkachenkosi/malpha.nvim.git",
       "version": "'master'"
     },
     "mason.nvim": {
-      "rev": "bb639d4bf385a4d89f478b83af4d770be05ab7eb",
+      "rev": "16ba83bfc8a25f52bb545134f5bee082b195c460",
       "src": "https://github.com/mason-org/mason.nvim.git",
       "version": "'main'"
     },
     "mautopairs.nvim": {
-      "rev": "9d585f7feff7c403bd0a56d31403eccc3e6c2999",
+      "rev": "3b1dc7b6e3939e4876054310aa3058d664f20f8e",
       "src": "https://github.com/tkachenkosi/mautopairs.nvim.git",
       "version": "'master'"
     },
     "mbuffers.nvim": {
-      "rev": "5dacc2828130e925fae3f3e60cc25527d7a74704",
+      "rev": "bba744a1dfbc863b9d0deefb39cec9714670c7fd",
       "src": "https://github.com/tkachenkosi/mbuffers.nvim.git",
+      "version": "'master'"
+    },
+    "micro-snippets": {
+      "rev": "596f2b9e8c2c6b9b9254224a8c85ccf2d3dc3a18",
+      "src": "https://github.com/tkachenkosi/micro-snippets.nvim.git",
+      "version": "'master'"
+    },
+    "micro-snippets.nvim": {
+      "rev": "596f2b9e8c2c6b9b9254224a8c85ccf2d3dc3a18",
+      "src": "https://github.com/tkachenkosi/micro-snippets.nvim.git",
       "version": "'master'"
     },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
+    },
+    "snippets": {
+      "rev": "596f2b9e8c2c6b9b9254224a8c85ccf2d3dc3a18",
+      "src": "https://github.com/tkachenkosi/micro-snippets.nvim.git",
+      "version": "'master'"
     }
   }
 }

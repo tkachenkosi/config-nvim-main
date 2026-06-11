@@ -1,15 +1,16 @@
 require("core.configs")
 require("core.mappings")
--- require("core.lazy")
 require("core.cmds")
 require("core.lsp")
 require("my.myfunc")
--- require("my.malpha")
+-- require("my.snippets").setup()
 -- packs:
 require('packs.gruvboxsi')
 require('packs.mautopairs')
 require('packs.mbuffers')
-require('packs.nvim-treesitter')
 require('packs.malpha')
--- временно отключен, включается для обновления lsp-servers
+require('packs.snippets')
+-- временно отключено
+-- require('packs.nvim-treesitter')
 -- require('packs.mason')
+-- require('packs.diffview')

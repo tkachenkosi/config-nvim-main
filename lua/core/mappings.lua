@@ -108,3 +108,15 @@ vim.keymap.set('n', 'q', '<Nop>', opts)
 
 -- обновить packs
 vim.keymap.set('n', '<leader>1', function() vim.pack.update(); end, opts)
+
+-- Diffview
+local function toggle_diffview()
+    if next(require("diffview.lib").views) == nil then
+        vim.cmd("DiffviewOpen")
+    else
+        vim.cmd("DiffviewClose")
+    end
+end
+
+vim.keymap.set("n", "<leader>d", toggle_diffview, { desc = "Toggle Diffview" })
+
