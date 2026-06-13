@@ -138,10 +138,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
 
 -- Регистрируем парсер 'bash' для всех файлов с типом 'sh'
--- Это ключевая строка, которая решает проблему
 vim.treesitter.language.register('bash', 'sh')
 vim.treesitter.language.register('bash', 'conf')
--- vim.treesitter.language.register('bash', 'ini')
 
 -- Автоматически запускаем подсветку для этих файлов при открытии
 -- local bashGroup = vim.api.nvim_create_augroup('BashHighlight', { clear = true })
