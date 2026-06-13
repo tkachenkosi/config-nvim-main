@@ -10,7 +10,7 @@ return {
 			usePlaceholders = true, -- автогенерация аргументов функций
 			completeUnimported = true, -- автодобавление import при completion
 			-- Автодобавление нужных import
-			importShortcut = "Both",
+			-- importShortcut = "Both",
 
 			-- Диагностика + анализаторы
 			analyses = {

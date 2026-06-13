@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   -- pattern = {'*.go', '*.css', '*.js', '*.ts', '*.svelte'},
   pattern = {'*.go', '*.css', '*.js', '*.ts'},
   callback = function()
-    vim.lsp.buf.format({ async = false })
+    vim.lsp.buf.format({ async = true })
   end
 })
 
@@ -137,6 +137,26 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
+-- Регистрируем парсер 'bash' для всех файлов с типом 'sh'
+-- Это ключевая строка, которая решает проблему
+vim.treesitter.language.register('bash', 'sh')
+vim.treesitter.language.register('bash', 'conf')
+-- vim.treesitter.language.register('bash', 'ini')
+
+-- Автоматически запускаем подсветку для этих файлов при открытии
+-- local bashGroup = vim.api.nvim_create_augroup('BashHighlight', { clear = true })
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = { 'sh', 'bash' },
+--   group = bashGroup,
+--   callback = function(args)
+--     -- На всякий случай проверяем, не активна ли уже подсветка
+--     if not vim.treesitter.highlighter.active[args.buf] then
+--       pcall(vim.treesitter.start, args.buf)
+--     end
+--   end,
+-- })
+
+
 -- disable treesitter for large files
 local MAX_LINES = 5000
 
@@ -146,12 +166,14 @@ vim.api.nvim_create_autocmd('FileType', {
 		-- checking the file size
 		if vim.api.nvim_buf_line_count(ev.buf) > MAX_LINES then
 			-- возврат подсветки на regex
+			vim.treesitter.stop(ev.buf)
 			vim.bo[ev.buf].syntax = "on"
 			return
 		end
 
 		-- не дергать start() повторно
     if not vim.treesitter.highlighter.active[ev.buf] then
+			-- vim.bo[ev.buf].syntax = "off"
       pcall(vim.treesitter.start, ev.buf)
     end
   end,

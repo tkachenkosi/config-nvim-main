@@ -7,9 +7,14 @@ vim.schedule(function()
   require('nvim-treesitter').install({
     "c","cpp","lua","typescript","javascript","query","rust","go",
     "css","html","json","make","sql","toml","bash","markdown",
-    "dockerfile","svelte","yaml","tsx","vim"
+    "dockerfile","svelte","yaml","tsx","vim", "ini"
   })
 end)
+
+-- команды:
+-- checkhealth nvim-treesitter
+-- set filetype?
+
 
 -- -- disable treesitter for large files
 -- local MAX_LINES = 5000
