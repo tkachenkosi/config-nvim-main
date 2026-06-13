@@ -11,23 +11,23 @@ vim.schedule(function()
   })
 end)
 
--- disable treesitter for large files
-local MAX_LINES = 5000
-
--- Start treesitter. 
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function(ev)
-		-- checking the file size
-		if vim.api.nvim_buf_line_count(ev.buf) > MAX_LINES then
-			-- возврат подсветки на regex
-			vim.bo[ev.buf].syntax = "on"
-			return
-		end
-
-		-- не дергать start() повторно
-    if not vim.treesitter.highlighter.active[ev.buf] then
-      pcall(vim.treesitter.start, ev.buf)
-    end
-  end,
-})
-
+-- -- disable treesitter for large files
+-- local MAX_LINES = 5000
+--
+-- -- Start treesitter. 
+-- vim.api.nvim_create_autocmd('FileType', {
+--   callback = function(ev)
+-- 		-- checking the file size
+-- 		if vim.api.nvim_buf_line_count(ev.buf) > MAX_LINES then
+-- 			-- возврат подсветки на regex
+-- 			vim.bo[ev.buf].syntax = "on"
+-- 			return
+-- 		end
+--
+-- 		-- не дергать start() повторно
+--     if not vim.treesitter.highlighter.active[ev.buf] then
+--       pcall(vim.treesitter.start, ev.buf)
+--     end
+--   end,
+-- })
+--

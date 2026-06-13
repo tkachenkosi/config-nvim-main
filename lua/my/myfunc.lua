@@ -107,7 +107,7 @@ vim.keymap.set({'n','i'}, '<a-5>', put_color)
 
 
 -- читает слово под курсором, определяет расширение файла 
--- запускает Rg <ext_file> <current_word>
+-- поиск основан на запуске пользовательской команды (in cmd.lua) Rg <ext_file> <current_word>
 local function QuickfixCurrWord()
 	local current_mode = vim.api.nvim_get_mode().mode
 	local current_word = ""

@@ -1,4 +1,5 @@
 ---err
+slog.Error("Ошибка: %v", err)
 return fmt.Errorf("ошибка %w", err)
 ---if
 if err != nil {
@@ -19,17 +20,68 @@ fmt.Printf()
 ---ps
 fmt.Sprintf()
 ---sl
-select
+select {
+case result := <-ch:
+    fmt.Println("Результат:", result)
+case <-time.After(5 * time.Second):
+    fmt.Println("Таймаут!")
+}
 ---ga
 goroutine anonymous function
 ---sw
-Switch
+switch codeNum {
+case 1:
+	return "USD"
+case 2:
+	return "EUR"
+case 3:
+	return "RUS"
+default:
+	return "ERR"
+}
 ---fn
-func () {
+func f() {
 }
 ---fm
-func ()() {
+func ()f() {
 }
 ---forr
-for k,v :=  range {
+for i,v :=  range {
 }
+---for
+for i:=0;i<2;i++ {}
+---ctx
+ctx := context.Background()`
+func noLeak(ctx context.Context) {
+    ch := make(chan int)
+    go func() {
+        select {
+        case val := <-ch:
+            fmt.Println(val)
+        case <-ctx.Done(): // Горутина завершится когда контекст отменён
+            return
+        }
+    }()
+}
+---saf
+type SafeMap struct {
+	mu sync.RWMutex
+	m  map[string]int
+}
+
+func (s *SafeMap) Set(key string, val int) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.m[key] = val
+}
+
+func (s *SafeMap) Get(key string) int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.m[key]
+}
+---syn
+var m sync.Map
+
+m.Store("key", 42)
+val, ok := m.Load("key")

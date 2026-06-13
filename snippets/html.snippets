@@ -1,0 +1,37 @@
+---html
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wiki</title>
+    <script type="module" crossorigin src="/assets/index-CESrcjLP.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DWIDYjrN.css">
+  </head>
+  <body>
+    <nav>
+			<div class="controls">
+				<span id="linkLoadPwd">&#127479;&#127482;</span>
+				<span><h3>Домашняя Wiki</h3></span>
+			</div>
+			<div class="controls">
+					<input type="text" id="noteName" placeholder="Название заметки" autocomplete="off">
+					<button id="btnFindNote" title="Поиск заметки по названию">&#128269;</button>
+			</div>
+    </nav>
+
+    <div class="container">
+        <aside></aside>
+        <section></section>
+    </div>
+    <div class="footer">
+			<span>&copy; tkachenkosi@yandex.ru</span>
+    </div>
+  </body>
+</html>
+---evn
+document.getElementById("btnCancel").addEventListener("click", () => {
+	if (!isEditing) return;
+	noteContent.innerHTML = originalHTML;
+	exitEditor();
+});
