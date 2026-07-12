@@ -1,7 +1,7 @@
 {
   "plugins": {
     "diffview-plus.nvim": {
-      "rev": "1551fc496c29e14ebd4cf04543549a59dfe5d0dc",
+      "rev": "e51af76acc83fe728e9c9dae527bee330d90436d",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim.git",
       "version": "'main'"
     },
@@ -30,11 +30,6 @@
       "src": "https://github.com/tkachenkosi/mbuffers.nvim.git",
       "version": "'master'"
     },
-    "micro-snippets": {
-      "rev": "596f2b9e8c2c6b9b9254224a8c85ccf2d3dc3a18",
-      "src": "https://github.com/tkachenkosi/micro-snippets.nvim.git",
-      "version": "'master'"
-    },
     "micro-snippets.nvim": {
       "rev": "596f2b9e8c2c6b9b9254224a8c85ccf2d3dc3a18",
       "src": "https://github.com/tkachenkosi/micro-snippets.nvim.git",
@@ -44,11 +39,6 @@
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
-    },
-    "snippets": {
-      "rev": "596f2b9e8c2c6b9b9254224a8c85ccf2d3dc3a18",
-      "src": "https://github.com/tkachenkosi/micro-snippets.nvim.git",
-      "version": "'master'"
     }
   }
 }

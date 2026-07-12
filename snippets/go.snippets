@@ -11,6 +11,8 @@ if err != nil {
 	return fmt.Errorf("ошибка %w", err)
 } else {
 }
+---logini
+l "github.com/tkachenkoosi/mlogger"
 ---log
 slog.Info("")
 ---pl
@@ -85,3 +87,34 @@ var m sync.Map
 
 m.Store("key", 42)
 val, ok := m.Load("key")
+---pack
+package main
+
+import (
+	"fmt"
+	"github.com/tkachenkosi/goini"
+	l "github.com/tkachenkosi/mlogger"
+)
+
+func main() {
+	defer l.Close()
+	l.Info("=== для работы ===")
+
+	fmt.Println("Info message")
+}
+---struc
+type Tres struct {
+	Err int    `json:"err"`
+	Msg string `json:"msg"`
+}
+---ini
+type web struct {
+	Host string `ini:"host"`
+	Port string `ini:"port"`
+	Code string `ini:"code"`
+}
+
+cfg, err := goini.Load[web]()
+if err != nil {
+	slog.Error(err.Error())
+}

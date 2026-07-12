@@ -119,4 +119,30 @@ local function toggle_diffview()
 end
 
 vim.keymap.set("n", "<leader>d", toggle_diffview, { desc = "Toggle Diffview" })
+-- привычное выдиление строки
+vim.keymap.set('n', '<S-Down>', 'V', { noremap = true, silent = true })
 
+-- выдиление блока до первой пустой строки
+vim.keymap.set('n', '<leader>v', function()
+  vim.cmd('normal! V')
+  local cur_line = vim.fn.line('.')
+  local end_line = cur_line
+  local max_line = vim.fn.line('$')
+
+  -- ищем первую пустую строку после текущей
+  while end_line < max_line do
+    end_line = end_line + 1
+    local content = vim.fn.getline(end_line)
+    if content:match('^%s*$') then
+      break
+    end
+  end
+
+  -- если нашли пустую строку, останавливаемся на строке ПЕРЕД ней
+  if vim.fn.getline(end_line):match('^%s*$') then
+    end_line = end_line - 1
+  end
+
+  -- переходим к нужной строке, чтобы завершить выделение
+  vim.fn.cursor(end_line, 1)
+end, { silent = true, desc = 'Выделить блок до первой пустой строки' })

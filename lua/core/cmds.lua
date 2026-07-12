@@ -29,14 +29,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 
 -- форматирование файлов go css js на запись
+-- pattern = {'*.go', '*.css', '*.js', '*.ts', '*.svelte'},
 vim.api.nvim_create_autocmd('BufWritePre', {
-  -- pattern = {'*.go', '*.css', '*.js', '*.ts', '*.svelte'},
   pattern = {'*.go', '*.css', '*.js', '*.ts'},
   callback = function()
-    vim.lsp.buf.format({ async = true })
+    vim.lsp.buf.format({ async = false })
   end
 })
-
 
 -- Создаём свою команду :Rg для Quickfix (:vimgrep / :grep)
 -- на основе консольной утилиты rg (--vimgrep имеет режим вставания)
