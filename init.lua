@@ -11,5 +11,5 @@ require('packs.malpha')
 require('packs.micro-snippets')
 -- временно отключено
 -- require('packs.nvim-treesitter')
-require('packs.mason')
-require('packs.diffview')
+-- require('packs.mason')
+-- require('packs.diffview')

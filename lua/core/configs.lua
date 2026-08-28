@@ -103,7 +103,7 @@ for group, color in pairs({
 	file = {bold = true},
 	modi = {bg = '#e9c76b', fg = '#662227', bold = true},
 	-- buff = {bg = '#96887d'},
-	buff = {bg = '#0033cc'},
+	buff = {bg = '#051aff'},
 	line = {bg = '#ada299'},
 	lines = {bg = '#c4bcb5'}}) do
 	vim.api.nvim_set_hl(0, "HL_"..group, color)
