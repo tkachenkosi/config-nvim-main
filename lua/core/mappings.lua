@@ -29,6 +29,7 @@ vim.keymap.set('n', '<F7>', '*', opts)
 vim.keymap.set('i', '<F7>', '<Esc>*', opts)
 
 -- сдублировать строку
+vim.keymap.set('n', '<C-Down>', 'yyp', opts)
 vim.keymap.set('n', '<C-l>', 'yyp', opts)
 vim.keymap.set('i', '<C-l>', '<Esc>yypa', opts)
 
@@ -71,7 +72,10 @@ vim.keymap.set("n", ";", ":", {noremap = true, silent = false})
 -- keymap('n', '<leader><F3>', '<Esc>:Explore<CR>', {})
 
 -- Tab
-vim.keymap.set("n", "<Tab>", "<c-6>", opts)
+-- переключиться на предыдущий буфер
+-- vim.keymap.set("n", "<Tab>", "<c-6>", opts)
+vim.keymap.set("n", "<Tab>", '<cmd>b#<CR>', opts)
+-- переключятся по списку буферо в обратном направлении
 vim.keymap.set('n', '<S-Tab>', '<cmd>bprevious<CR>', opts)
 
 -- цветовые темы оформления (пока не работают)
@@ -94,13 +98,17 @@ vim.keymap.set('n', 'Ж', ':', opts)
 vim.keymap.set('n', 'М', 'V', opts)
 vim.keymap.set('n', 'м', 'v', opts)
 vim.keymap.set('n', 'г', 'u', opts)
+vim.keymap.set('n', 'у', 'e', opts)
+
 vim.keymap.set('n', 'н', 'y', opts)
-vim.keymap.set('v', 'н', 'y', opts)
-vim.keymap.set('o', 'н', 'y', opts)
 vim.keymap.set('n', 'з', 'p', opts)
-vim.keymap.set('v', 'з', 'p', opts)
 vim.keymap.set('n', 'в', 'd', opts)
+
+vim.keymap.set('v', 'н', 'y', opts)
+vim.keymap.set('v', 'з', 'p', opts)
 vim.keymap.set('v', 'в', 'd', opts)
+
+vim.keymap.set('o', 'н', 'y', opts)
 vim.keymap.set('o', 'в', 'd', opts)
 
 -- отключить запись макросов
@@ -109,18 +117,19 @@ vim.keymap.set('n', 'q', '<Nop>', opts)
 -- обновить packs
 vim.keymap.set('n', '<leader>1', function() vim.pack.update(); end, opts)
 
--- Diffview
-local function toggle_diffview()
-    if next(require("diffview.lib").views) == nil then
-        vim.cmd("DiffviewOpen")
-    else
-        vim.cmd("DiffviewClose")
-    end
-end
-
-vim.keymap.set("n", "<leader>d", toggle_diffview, { desc = "Toggle Diffview" })
 -- привычное выдиление строки
 vim.keymap.set('n', '<S-Down>', 'V', { noremap = true, silent = true })
+
+-- Diffview
+-- открытие и закрытие Diffview
+vim.keymap.set("n", "<leader>d", function()
+	if next(require("diffview.lib").views) == nil then
+		vim.cmd("DiffviewOpen")
+	else
+		vim.cmd("DiffviewClose")
+	end
+end, { desc = "Toggle Diffview" })
+
 
 -- выдиление блока до первой пустой строки
 vim.keymap.set('n', '<leader>v', function()
@@ -141,6 +150,26 @@ vim.keymap.set('n', '<leader>v', function()
   -- если нашли пустую строку, останавливаемся на строке ПЕРЕД ней
   if vim.fn.getline(end_line):match('^%s*$') then
     end_line = end_line - 1
+  end
+
+  -- переходим к нужной строке, чтобы завершить выделение
+  vim.fn.cursor(end_line, 1)
+end, { silent = true, desc = 'Выделить блок до первой пустой строки' })
+
+
+-- выделить весь текст функции
+vim.keymap.set('n', '<leader>f', function()
+  vim.cmd('normal! V')
+  local cur_line = vim.fn.line('.')
+  local end_line = cur_line
+  local max_line = vim.fn.line('$')
+
+  -- ищем первую пустую строку после текущей
+  while end_line < max_line do
+    end_line = end_line + 1
+    if vim.fn.getline(end_line):sub(1, 3) == "end" then
+      break
+    end
   end
 
   -- переходим к нужной строке, чтобы завершить выделение

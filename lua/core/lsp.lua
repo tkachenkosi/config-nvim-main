@@ -1,6 +1,6 @@
 -- список серверов
 local servers = {
-    -- "lua_ls",
+    "lua_ls",
     "gopls",
     "ts_ls",
     "html",
