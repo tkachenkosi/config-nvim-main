@@ -99,86 +99,14 @@ end
 
 vim.keymap.set({'n','i'}, '<a-5>', put_color)
 
--- читает слово под курсором, определяет расширение файла 
--- поиск основан на запуске пользовательской команды (in cmd.lua) Rg <ext_file> <current_word>
-local function QuickfixCurrWord()
-    local current_mode = vim.api.nvim_get_mode().mode
-    local current_word
 
-    if current_mode == 'n' then
-        current_word = vim.fn.expand('<cword>')
-    elseif current_mode == 'v' or current_mode == 'V' or current_mode == '\22' then -- \22 = Ctrl-V
-			-- это для поиска выделенного фрагмента, а не одного слова
-			-- Сохраняем выделение в регистр "
-			vim.cmd('noautocmd normal! "xy')
-			-- Получаем выделенный текст из регистра x
-			-- Убираем последний символ если это перевод строки (в визуальном режиме часто добавляется)
-			current_word = vim.fn.getreg('x'):gsub('\n$', '')
-    else
-        vim.notify("Не поддерживаемый режим", vim.log.levels.WARN)
-        return
-    end
-
-    if current_word == '' then
-        vim.notify("Ничего не выделено", vim.log.levels.WARN)
-        return
-    end
-
-    local ext_file = vim.fn.expand('%:e')
-    if ext_file == '' then
-        vim.notify("Файл без расширения", vim.log.levels.WARN)
-        return
-    end
-
-    -- Используем vim.system (асинхронно)
-    local args = { "rg", "--vimgrep", "--type", ext_file, current_word }
-
-		vim.system(args, { text = true }, function(out)
-			vim.schedule(function()
-				if out.code ~= 0 or out.stdout == "" then
-					vim.notify("Ничего не найдено или ошибка", vim.log.levels.INFO)
-					return
-				end
-				local lines = vim.split(out.stdout, "\n")
-				vim.fn.setqflist({}, ' ', {
-					title = string.format('Rg %s %s (%d)', ext_file, current_word, #lines),
-					lines = lines
-				})
-				vim.cmd("copen")
-			end)
-		end)
-
+-- список всех keymaps
+local function keymap_list()
+  local keymaps = vim.api.nvim_exec2("map", { output = true }).output
+  local lines = vim.split(keymaps, "\n")
+  local buff = vim.api.nvim_create_buf(true, true)
+  vim.api.nvim_set_current_buf(buff)
+  vim.api.nvim_buf_set_lines(buff, 0, -1, false, lines)
 end
 
-vim.keymap.set({'n','v'}, '<leader><F7>', QuickfixCurrWord, {desc = 'Quickfix current word'})
-
-
--- SmartNetrw открытие и закрытие files explorer
-local function SmartNetrw()
-  local netrw_bufs = {}
-
-	-- Собираем все активные буферы netrw
-	for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-		if vim.api.nvim_buf_is_loaded(bufnr) then
-			local ft = vim.api.nvim_get_option_value('filetype', { buf = bufnr })
-			if ft == 'netrw' then
-				table.insert(netrw_bufs, bufnr)
-			end
-		end
-	end
-
-	if #netrw_bufs > 0 then
-		-- Если буферы netrw есть — закрываем их все
-		for _, bufnr in ipairs(netrw_bufs) do
-				vim.api.nvim_buf_delete(bufnr, { force = true })
-		end
-		if vim.api.nvim_get_current_buf() == netrw_bufs[1] then
-				vim.cmd("close")   -- если текущее окно было netrw
-		end
-	else
-		-- Если буферов netrw нет — открываем новый
-		vim.cmd("25vs +Explore")
-	end
-end
-
-vim.keymap.set('n', '<leader>e', SmartNetrw, { desc = 'Toggle netrw file explorer' })
+vim.keymap.set("n", "<leader>gk", keymap_list,{})

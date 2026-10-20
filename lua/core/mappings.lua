@@ -8,8 +8,11 @@ vim.keymap.set('i', '<F2>', '<Esc><cmd>w<CR>', opts)
 -- vim.keymap.set("i", "jj", "<Esc>")
 
 -- закоментировать строку/ Коментарий блока - <leader>gc
+-- 1 ставит коментарий и переходит на строку вниз
+-- 2 выходит из режима вставки, коментарий, переходит в режим вставки
 vim.api.nvim_set_keymap('n', '<F3>', "gccj", {})
 vim.api.nvim_set_keymap('i', '<F3>', "<Esc>gcca", {})
+vim.api.nvim_set_keymap('x', '<F3>', 'gc',    { desc = 'Toggle comment on selection' })
 
 -- выделяем и копируем слово (F4 может не нужно это только выделение)
 vim.api.nvim_set_keymap('n', '<F5>', 'viwy', {})
