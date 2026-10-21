@@ -1,14 +1,17 @@
 -- Глобальный флаг: "extended" или "minimal"
 _G.LspStatusMode = _G.LspStatusMode or 0
 
--- ветка git
--- local function current_branch()
--- 	local res = vim.fn.systemlist("git branch --show-current")
--- 	if #res == 0 or #res[1]>20 then
--- 		return "Git None"
--- 	end
--- 	return res[1]
--- end
+-- Ветка git. Показывает branch в сообщении командной строки.
+local function gitBranch()
+	 if _G.LspStatusMode ~= 1 then
+		 return ""
+	 end
+	local res, br = vim.fn.systemlist("git branch --show-current"), "none"
+	if #res > 0 and #res[1]<20 then
+		br = res[1]
+	end
+	return ", Git branch: " .. br
+end
 
 -- диагностика LSP
 _G.MyLspStatus = function()
@@ -18,7 +21,7 @@ _G.MyLspStatus = function()
 
   local clients = vim.lsp.get_clients({ bufnr = 0 })
   if #clients == 0 then
-    return "LSP None"
+    return "None"
   end
 
   -- Расширенный режим: имена клиентов + диагностика
@@ -52,14 +55,16 @@ _G.MyLspStatus = function()
 	return string.format("E:%d W:%d", errors, warnings)
 end
 
+
 -- Переключение режима показа статуса LSP в statusline
 vim.keymap.set("n", "<leader>l", function()
   _G.LspStatusMode = (_G.LspStatusMode + 1) % 3
 
-	local labels = { [0] = "off", [1] = "name", [2] = "git", [3] = "diagnostics" }
+	local labels = { [0] = "off", [1] = "name", [2] = "diagnostics" }
   vim.cmd("redrawstatus")
-  vim.notify("LSP status: " .. labels[_G.LspStatusMode], vim.log.levels.INFO)
+  vim.notify("LSP status: " .. labels[_G.LspStatusMode] .. gitBranch(), vim.log.levels.INFO)
 end, { desc = "Toggle LSP status mode" })
+
 
 -- HL statusline
 for group, color in pairs({
