@@ -68,7 +68,7 @@ vim.keymap.set('i', '<F10>', '<Esc><c-6>', opts)
 -- выдиляет весь текст
 vim.keymap.set('n', '<Leader>sa', 'ggVG<c-$>', opts)
 -- дополнительная команда входа в командный режим
-vim.keymap.set("n", ";", ":", {noremap = true, silent = false})
+-- vim.keymap.set("n", ";", ":", {noremap = true, silent = false})
 
 -- встроенный Exploer (открываем слева окно в 30 колонок)
 -- уже не нужно так как есть <leader>e

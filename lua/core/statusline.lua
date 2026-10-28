@@ -2,42 +2,37 @@
 _G.LspStatusMode = _G.LspStatusMode or 0
 
 -- Ветка git. Показывает branch в сообщении командной строки.
-local function gitBranch()
-	 if _G.LspStatusMode ~= 1 then
-		 return ""
-	 end
-	local res, br = vim.fn.systemlist("git branch --show-current"), "none"
+local function getBranch()
+	local res, br = vim.fn.systemlist("git branch --show-current"), "None"
 	if #res > 0 and #res[1]<20 then
 		br = res[1]
 	end
-	return ", Git branch: " .. br
+	return ", Git: " .. br
 end
 
--- диагностика LSP
-_G.MyLspStatus = function()
-  if _G.LspStatusMode == 0 then
-    return ""
-  end
-
+-- возвращает только имя LSP
+local function getNameLsp()
   local clients = vim.lsp.get_clients({ bufnr = 0 })
   if #clients == 0 then
     return "None"
   end
 
   -- Расширенный режим: имена клиентов + диагностика
-  if _G.LspStatusMode == 1 then
-		local names = {}
-		for _, client in ipairs(clients) do
-			table.insert(names, client.name)
-		end
-		local lsp_name = table.concat(names, ",")
-			-- возвращаем только имя клиента LSP
-			return lsp_name
-  end
+	local names = {}
+	for _, client in ipairs(clients) do
+		table.insert(names, client.name)
+	end
+	local lsp_name = table.concat(names, ",")
+	-- возвращаем только имя клиента LSP
+	return lsp_name
+end
 
-	--  if _G.LspStatusMode == 2 then
-	-- 	return current_branch()
-	-- end
+
+-- диагностика LSP показываем только количество ошибок и предупреждений
+_G.MyLspStatus = function()
+  if _G.LspStatusMode < 2 then
+    return ""
+  end
 
   local diagnostics = vim.diagnostic.get(0)
   local errors, warnings = 0, 0
@@ -60,9 +55,9 @@ end
 vim.keymap.set("n", "<leader>l", function()
   _G.LspStatusMode = (_G.LspStatusMode + 1) % 3
 
-	local labels = { [0] = "off", [1] = "name", [2] = "diagnostics" }
+	local labels = { [0] = "off", [1] = getNameLsp() .. getBranch(), [2] = "diagnostics" }
   vim.cmd("redrawstatus")
-  vim.notify("LSP status: " .. labels[_G.LspStatusMode] .. gitBranch(), vim.log.levels.INFO)
+  vim.notify("Lsp: " .. labels[_G.LspStatusMode], vim.log.levels.INFO)
 end, { desc = "Toggle LSP status mode" })
 
 
@@ -84,6 +79,6 @@ vim.opt.statusline = table.concat({
   "%=",
   "%#HL_line# %{v:lua.MyLspStatus()} %*", -- <-- LSP-индикатор
   "%#HL_buff#%n%*",
-  "%#HL_line# %l:%v %*",
+  "%#HL_line# %v:%p%%/%*",
   "%#HL_lines#%L%*"}, "")
 

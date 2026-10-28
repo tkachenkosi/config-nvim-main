@@ -100,6 +100,8 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     -- vim.keymap.set('n', '<C-q>', ':cclose<CR>', { buffer = true, nowait = true })
     -- Можно добавить и другие удобные маппинги для quickfix окна
+		-- vim.diagnostic.setqflist
+		-- vim.diagnostic.setloclist
     vim.keymap.set('n', '<Esc>', ':cclose<CR>', { buffer = true, nowait = true })
     vim.keymap.set('n', 'q', ':cclose<CR>', { buffer = true, nowait = true })
   end
