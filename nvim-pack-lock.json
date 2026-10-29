@@ -1,7 +1,7 @@
 {
   "plugins": {
     "diffview-plus.nvim": {
-      "rev": "b297353e82c0390a2ca0c549b1c1acb6802e0c4c",
+      "rev": "3aba39f4d1704cc7aa26af487ab5579b5c614437",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim.git",
       "version": "'main'"
     },
@@ -11,7 +11,7 @@
       "version": "'master'"
     },
     "malpha.nvim": {
-      "rev": "58e9572e35453559f8ae2a89f81cbfe967ef1da4",
+      "rev": "da01a3bbfeaba4f182d17c34cb589d4c64278a11",
       "src": "https://github.com/tkachenkosi/malpha.nvim.git",
       "version": "'master'"
     },

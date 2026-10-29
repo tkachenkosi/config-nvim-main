@@ -121,7 +121,7 @@ vim.keymap.set('n', 'q', '<Nop>', opts)
 vim.keymap.set('n', '<leader>1', function() vim.pack.update(); end, opts)
 
 -- привычное выдиление строки
-vim.keymap.set('n', '<S-Down>', 'V', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Down>', 'V', opts)
 
 -- Diffview
 -- открытие и закрытие Diffview

@@ -71,3 +71,20 @@ vim.api.nvim_set_decoration_provider(ns, {
     return true
   end,
 })
+
+-- получить путь файла в текущем буфере
+local function getCurrPath()
+	-- Получаем полный путь к файлу в текущем буфере
+	local file_path = vim.api.nvim_buf_get_name(0)
+	-- Получаем директорию файла
+	return file_path and vim.fs.dirname(file_path)
+	-- Выводим результат
+	-- print("Директория файла:", dir_path)
+end
+
+-- открытие dir.lua из редактора
+vim.keymap.set("n", "<leader>kf", function()
+	-- vim.cmd("edit " .. getCurrPath())
+	vim.api.nvim_cmd({ cmd = 'edit', args = { getCurrPath() } }, {})
+end, { noremap = true, silent = true })
+

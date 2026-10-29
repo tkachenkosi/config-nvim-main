@@ -1,3 +1,5 @@
+local opts = { noremap = true, silent = true }
+
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#2b2b2b" })
 
 -- добовляет тэги к полям структуры на golang
@@ -26,7 +28,7 @@ end
 -- Использование: вводим только тег dev, a, strong, ... нажимаем a-` получаем законченный тег
 -- vim.api.nvim_create_user_command("JsonLine", gen_json_current_line, {})
 -- vim.api.nvim_set_keymap('n', '<a-2>', "<CMD>JsonLine<CR>")
-vim.keymap.set({'n','i'}, '<a-1>', gen_json_current_line)
+vim.keymap.set({'n','i'}, '<a-1>', gen_json_current_line,  opts)
 
 
 -- автодополнение HTML тэгов
@@ -86,7 +88,7 @@ local function gen_snip_current_line()
 	vim.api.nvim_win_set_cursor(0, { row, col_cur })
 end
 
-vim.keymap.set({'n','i'}, "<a-`>", gen_snip_current_line)
+vim.keymap.set({'n','i'}, "<a-`>", gen_snip_current_line, opts)
 
 -- получение цвета фона текущец строки
 local function put_color()
@@ -97,7 +99,7 @@ local function put_color()
 	end
 end
 
-vim.keymap.set({'n','i'}, '<a-5>', put_color)
+vim.keymap.set({'n','i'}, '<a-5>', put_color, opts)
 
 
 -- список всех keymaps
@@ -109,4 +111,20 @@ local function keymap_list()
   vim.api.nvim_buf_set_lines(buff, 0, -1, false, lines)
 end
 
-vim.keymap.set("n", "<leader>gk", keymap_list,{})
+vim.keymap.set("n", "<leader>gk", keymap_list, opts)
+
+
+
+local function getCurrPath()
+	-- Получаем полный путь к файлу в текущем буфере
+	local file_path = vim.api.nvim_buf_get_name(0)
+
+	-- Получаем директорию файла
+	local dir_path = file_path and vim.fs.dirname(file_path)
+
+	-- Выводим результат
+	print("Директория файла:", dir_path)
+end
+
+-- временно для проверки работы getCurrPath
+vim.keymap.set("n", "<leader>k", getCurrPath, opts)

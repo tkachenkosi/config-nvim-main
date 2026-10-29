@@ -30,7 +30,7 @@ end
 
 -- диагностика LSP показываем только количество ошибок и предупреждений
 _G.MyLspStatus = function()
-  if _G.LspStatusMode < 2 then
+  if _G.LspStatusMode < 1 then
     return ""
   end
 
@@ -53,12 +53,12 @@ end
 
 -- Переключение режима показа статуса LSP в statusline
 vim.keymap.set("n", "<leader>l", function()
-  _G.LspStatusMode = (_G.LspStatusMode + 1) % 3
+  _G.LspStatusMode = (_G.LspStatusMode + 1) % 2
 
-	local labels = { [0] = "off", [1] = getNameLsp() .. getBranch(), [2] = "diagnostics" }
+	local labels = { [0] = "off", [1] = getNameLsp() .. getBranch() }
   vim.cmd("redrawstatus")
   vim.notify("Lsp: " .. labels[_G.LspStatusMode], vim.log.levels.INFO)
-end, { desc = "Toggle LSP status mode" })
+end, { noremap = true, silent = true, desc = "Toggle LSP status mode" })
 
 
 -- HL statusline
